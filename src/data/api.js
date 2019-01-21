@@ -1,15 +1,6 @@
 import { AsyncStorage } from 'react-native'
-import { initialData } from './initialData';
 
 export const DECKS_STORAGE_KEY = 'Flashcards:decks';
-
-export const fetchInitialData = async () => {
-  try {
-    AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
-  } catch (error) {
-    console.log(error)
-  }
-};
 
 export const getDecks =  () => {
   return  AsyncStorage.getItem(DECKS_STORAGE_KEY).then((results) => JSON.parse(results))
