@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { createBottomTabNavigator, createAppContainer } from "react-navigation";
 import { DecksScreen } from './screens/DecksScreen';
 import { NewDeckScreen } from './screens/NewDeckScreen';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import { fetchInitialData } from '../data/api';
 
-export default function App() {
-  return (
-    <AppContainer/>
-  );
+export default class App extends Component {
+  async componentDidMount() {
+    await fetchInitialData()
+  }
+  render() {
+    return (
+      <AppContainer/>
+    );
+  }
 }
 
 const AppNavigator = createBottomTabNavigator(
