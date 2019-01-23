@@ -8,6 +8,7 @@ export const AddDeck = ({handlePress}) => (
       name="add"
       color="white"
       size={10}
+      onPress={() => handlePress()}
     />
     <MaterialCommunityIcons
       name="cards"
@@ -22,12 +23,12 @@ const styles = StyleSheet.create({
   container:{
     backgroundColor: "#ba265d",
     borderRadius: "100px",
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
     zIndex: 10,
     alignSelf: "flex-end"
   }
-});
+})
