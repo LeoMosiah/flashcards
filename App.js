@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { DecksScreen } from './screens/DecksScreen';
+import { Home } from './screens/Home';
 
 export default class App extends Component {
   render() {
     return (
-        <DecksScreen/>
+        <Home/>
     );
   }
 }
