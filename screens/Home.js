@@ -4,7 +4,7 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { AddDeck } from "../components/AddDeck"
 import { Deck } from "../components/Deck"
 
-export const Home = () =>  (
+export const Home = ({navigation}) =>  (
   <View style={styles.container}>
     <View style={styles.header}>
       <MaterialCommunityIcons
@@ -20,7 +20,9 @@ export const Home = () =>  (
         cards="13"
       />
     </View>
-    <AddDeck/>
+    <AddDeck
+      handlePress={() => navigation.navigate("NewDeck")}
+    />
   </View>
 );
 

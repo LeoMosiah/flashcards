@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Home } from './screens/Home';
+import { Router } from './components/Router';
 
 export default class App extends Component {
   render() {
     return (
-        <Home/>
+      <Router/>
     );
   }
 }
-
-

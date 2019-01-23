@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 
-export const AddDeck = () => (
+export const AddDeck = ({handlePress}) => (
   <View style={styles.container}>
     <MaterialIcons
       name="add"
@@ -13,6 +13,7 @@ export const AddDeck = () => (
       name="cards"
       color="white"
       size={30}
+      onPress={() => handlePress()}
     />
   </View>
 );
@@ -29,4 +30,4 @@ const styles = StyleSheet.create({
     zIndex: 10,
     alignSelf: "flex-end"
   }
-})
+});
