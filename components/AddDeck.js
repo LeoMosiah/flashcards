@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
     zIndex: 10,
     alignSelf: "flex-end"
   }
-})
+});

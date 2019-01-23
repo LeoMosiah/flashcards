@@ -7,13 +7,19 @@ const AppNavigator = createStackNavigator({
       screen: Home,
       navigationOptions: ({ navigation }) => ({
         headerTitle: "Flashcards",
+        headerStyle:{
+          backgroundColor: "#ba265d",
+        }
       }),
     },
     NewDeck:{
       screen: NewDeck,
       navigationOptions: ({ navigation }) => ({
         headerTitle: "New Deck",
-        headerBackTitle: "Home"
+        headerBackTitle: "Home",
+        headerStyle:{
+          backgroundColor: "#ba265d",
+        }
       }),
     }
   },
