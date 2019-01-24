@@ -1,9 +1,10 @@
+import _ from "lodash";
 
 const INITIAL_STATE = {};
 export const RECEIVE_DECKS = "decks/receive";
 export const ADD_DECK = "decks/add";
 
-export const decksSelector = (state) => state.decks;
+export const decksSelector = state => state.decks;
 
 export const receiveDecksAction = decks => ({
   type: RECEIVE_DECKS,
@@ -29,7 +30,7 @@ const handleAddDeck = (state, action) => {
 
 export const decksReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case RECEIVE_TWEETS:
+    case RECEIVE_DECKS:
       return handleReceiveDecks(state, action);
     case ADD_DECK:
       return handleAddDeck(state, action);
