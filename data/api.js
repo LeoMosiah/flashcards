@@ -1,9 +1,11 @@
 import { AsyncStorage } from 'react-native'
+import { initialData } from './initialData';
 
 export const DECKS_STORAGE_KEY = 'Flashcards:decks';
 
 export const getDecks =  () => {
-  return  AsyncStorage.getItem(DECKS_STORAGE_KEY).then((results) => JSON.parse(results))
+  return  AsyncStorage.getItem(DECKS_STORAGE_KEY)
+            .then((results) => JSON.parse(results))
 };
 
 export const getDeck =  (id) => {
@@ -25,3 +27,7 @@ export const addCardToDeck =  (title, card) => {
     card
   }))
 };
+
+export const fetchInitialData = () => {
+  AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
+}
