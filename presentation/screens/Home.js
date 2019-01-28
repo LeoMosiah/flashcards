@@ -7,32 +7,21 @@ import { styles } from "../styles/Home";
 
 export class Home extends Component {
   state = {
-    decks: {},
-    title: ""
+    decks: {}
   };
   async componentDidMount() {
     const decks = await getDecks();
     this.setState({ decks });
   }
-  handleChangeText = title => {
-    this.setState({ title });
-  };
-  handleSubmit = async () => {
-    await addDeck(this.state.title);
-    this.setState({
-      title: ""
-    });
-    this.props.navigation.navigate("Home");
-  };
   render() {
     const { navigation } = this.props;
-    const { decks, title } = this.state;
+    const { decks } = this.state;
     return (
       <View style={styles.container}>
         {Object.values(decks).map(deck => (
           <Deck
-            key={deck.title}
-            title={deck.title}
+            key={deck.newDeckTitle}
+            title={deck.newDeckTitle}
             cards={deck.questions.length}
             handlePress={() =>
               navigation.navigate("DeckDetails", {
@@ -41,15 +30,7 @@ export class Home extends Component {
             }
           />
         ))}
-        <AddDeck
-          handlePress={() =>
-            navigation.navigate("NewDeck", {
-              handleSubmit: this.handleSubmit,
-              handleChange: this.handleChangeText,
-              title
-            })
-          }
-        />
+        <AddDeck handlePress={() => navigation.navigate("NewDeck")} />
       </View>
     );
   }

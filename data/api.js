@@ -20,7 +20,7 @@ export const addDeck = title => {
     DECKS_STORAGE_KEY,
     JSON.stringify({
       [title]: {
-        title: title,
+        newDeckTitle: title,
         questions: []
       }
     }),

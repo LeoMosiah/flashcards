@@ -4,7 +4,7 @@ import { styles } from "../styles/DeckDetails";
 
 export const DeckDetails = ({ navigation }) => (
   <View style={styles.container}>
-    <Text style={styles.title}>{navigation.getParam("deck").title}</Text>
+    <Text style={styles.title}>{navigation.getParam("deck").newDeckTitle}</Text>
     <Text style={styles.subtitle}>
       {`${navigation.getParam("deck").questions.length} cards`}
     </Text>
