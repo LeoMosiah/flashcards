@@ -6,7 +6,6 @@ import {
   TouchableHighlight
 } from "react-native";
 import { styles } from "../styles/NewDeck";
-import * as PropTypes from "prop-types";
 import { addDeck } from "../../data/api";
 
 export class NewDeck extends Component {

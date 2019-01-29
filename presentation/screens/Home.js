@@ -2,26 +2,23 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import { AddDeck } from "../components/AddDeck";
 import { Deck } from "../components/Deck";
-import { addDeck, getDecks } from "../../data/api";
 import { styles } from "../styles/Home";
+import { connect } from "react-redux";
+import { decksSelector } from "../../domain/redux/ducks/decksReducer";
+import { getDecksAction } from "../../domain/redux/sagas/decksSaga";
 
-export class Home extends Component {
-  state = {
-    decks: {}
-  };
-  async componentDidMount() {
-    const decks = await getDecks();
-    this.setState({ decks });
+class HomeContainer extends Component {
+  componentDidMount() {
+    this.props.getDecks();
   }
   render() {
-    const { navigation } = this.props;
-    const { decks } = this.state;
+    const { decks, navigation } = this.props;
     return (
       <View style={styles.container}>
         {Object.values(decks).map(deck => (
           <Deck
-            key={deck.newDeckTitle}
-            title={deck.newDeckTitle}
+            key={deck.title}
+            title={deck.title}
             cards={deck.questions.length}
             handlePress={() =>
               navigation.navigate("DeckDetails", {
@@ -35,3 +32,16 @@ export class Home extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  decks: decksSelector(state)
+});
+
+const mapDispatchToProps = {
+  getDecks: getDecksAction
+};
+
+export const Home = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeContainer);

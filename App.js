@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Router } from "./presentation/components/Router";
-import { fetchInitialData } from "./data/api";
+import { Provider } from "react-redux";
+import { initializeDomainLayer } from "./domain";
 
 export default class App extends Component {
-  async componentDidMount() {
-    await fetchInitialData();
-  }
   render() {
-    return <Router />;
+    return (
+      <Provider store={initializeDomainLayer()}>
+        <Router />;
+      </Provider>
+    );
   }
 }

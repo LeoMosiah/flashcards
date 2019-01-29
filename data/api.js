@@ -20,12 +20,11 @@ export const addDeck = title => {
     DECKS_STORAGE_KEY,
     JSON.stringify({
       [title]: {
-        newDeckTitle: title,
+        title: title,
         questions: []
       }
-    }),
-    AsyncStorage.getItem(DECKS_STORAGE_KEY)
-  ).then(results => JSON.parse(results));
+    })
+  );
 };
 
 export const addCardToDeck = (title, card) => {
@@ -36,8 +35,4 @@ export const addCardToDeck = (title, card) => {
       card
     })
   );
-};
-
-export const fetchInitialData = () => {
-  AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData));
 };

@@ -1,6 +1,6 @@
 export const initialData = {
   React: {
-    newDeckTitle: "React",
+    title: "React",
     questions: [
       {
         question: "What is React?",
@@ -13,7 +13,7 @@ export const initialData = {
     ]
   },
   JavaScript: {
-    newDeckTitle: "JavaScript",
+    title: "JavaScript",
     questions: [
       {
         question: "What is a closure?",
