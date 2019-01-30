@@ -1,8 +1,8 @@
 import { applyMiddleware, createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
-import logger from "redux-logger";
 import { decksReducer } from "./redux/ducks/decksReducer";
 import { rootSaga } from "./redux/sagas";
+import { logger } from "redux-logger";
 
 export const initializeDomainLayer = () => {
   const sagaMiddleware = createSagaMiddleware();
@@ -11,5 +11,5 @@ export const initializeDomainLayer = () => {
     applyMiddleware(sagaMiddleware, logger)
   );
   sagaMiddleware.run(rootSaga);
-  return { store };
+  return store;
 };

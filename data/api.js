@@ -36,3 +36,7 @@ export const addCardToDeck = (title, card) => {
     })
   );
 };
+
+export const setInitialData = () => {
+  AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData));
+};

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { View } from "react-native";
 import { AddDeck } from "../components/AddDeck";
 import { Deck } from "../components/Deck";
@@ -7,6 +7,23 @@ import { connect } from "react-redux";
 import { decksSelector } from "../../domain/redux/ducks/decksReducer";
 import { getDecksAction } from "../../domain/redux/sagas/decksSaga";
 
+const HomeContent = ({ decks }) => {
+  return decks
+    ? Object.values(decks).map(deck => (
+        <Deck
+          key={deck.title}
+          title={deck.title}
+          cards={deck.questions.length}
+          handlePress={() =>
+            navigation.navigate("DeckDetails", {
+              deck: deck
+            })
+          }
+        />
+      ))
+    : null;
+};
+
 class HomeContainer extends Component {
   componentDidMount() {
     this.props.getDecks();
@@ -14,21 +31,12 @@ class HomeContainer extends Component {
   render() {
     const { decks, navigation } = this.props;
     return (
-      <View style={styles.container}>
-        {Object.values(decks).map(deck => (
-          <Deck
-            key={deck.title}
-            title={deck.title}
-            cards={deck.questions.length}
-            handlePress={() =>
-              navigation.navigate("DeckDetails", {
-                deck: deck
-              })
-            }
-          />
-        ))}
+      <Fragment>
+        <View style={styles.container}>
+          <HomeContent decks={decks} />
+        </View>
         <AddDeck handlePress={() => navigation.navigate("NewDeck")} />
-      </View>
+      </Fragment>
     );
   }
 }
