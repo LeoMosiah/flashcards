@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { decksSelector } from "../../domain/redux/ducks/decksReducer";
 import { getDecksAction } from "../../domain/redux/sagas/decksSaga";
 
-const HomeContent = ({ decks }) => {
+const HomeContent = ({ decks, navigation }) => {
   return decks
     ? Object.values(decks).map(deck => (
         <Deck
@@ -33,7 +33,7 @@ class HomeContainer extends Component {
     return (
       <Fragment>
         <View style={styles.container}>
-          <HomeContent decks={decks} />
+          <HomeContent decks={decks} navigation={navigation} />
         </View>
         <AddDeck handlePress={() => navigation.navigate("NewDeck")} />
       </Fragment>

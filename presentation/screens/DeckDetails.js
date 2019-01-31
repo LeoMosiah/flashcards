@@ -8,12 +8,19 @@ export const DeckDetails = ({ navigation }) => (
     <Text style={styles.subtitle}>
       {`${navigation.getParam("deck").questions.length} cards`}
     </Text>
-    <TouchableHighlight style={styles.button}>
+    <TouchableHighlight
+      style={styles.button}
+      onPress={() =>
+        navigation.navigate("NewCard", {
+          deckId: `${navigation.getParam("deck").id}`
+        })
+      }
+    >
       <Text style={styles.textButton}>Add Card</Text>
     </TouchableHighlight>
     <TouchableHighlight
       style={styles.button}
-      onPress={() => console.log("asd")}
+      onPress={() => navigation.navigate("Quiz")}
     >
       <Text style={styles.textButton}>Start Quiz</Text>
     </TouchableHighlight>

@@ -6,9 +6,12 @@ import {
   TouchableHighlight
 } from "react-native";
 import { styles } from "../styles/NewDeck";
+import { addDeckAction } from "../../domain/redux/ducks/decksReducer";
 import { addDeck } from "../../data/api";
+import { connect } from "react-redux";
+import { Deck } from "../../domain/entities/Deck";
 
-export class NewDeck extends Component {
+class NewDeckContainer extends Component {
   state = {
     newDeckTitle: ""
   };
@@ -16,7 +19,9 @@ export class NewDeck extends Component {
     this.setState({ newDeckTitle });
   };
   handleSubmit = async () => {
+    const newDeck = new Deck(this.state.newDeckTitle);
     await addDeck(this.state.newDeckTitle);
+    this.props.addNewDeck(newDeck);
     this.props.navigation.navigate("Home");
   };
   render() {
@@ -41,3 +46,12 @@ export class NewDeck extends Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  addNewDeck: addDeckAction
+};
+
+export const NewDeck = connect(
+  null,
+  mapDispatchToProps
+)(NewDeckContainer);

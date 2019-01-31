@@ -5,8 +5,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "test": "jest",
-    "test:watch": "jest --watch --debug"
+    "test": "jest --watch --debug"
   },
   "dependencies": {
     "@expo/vector-icons": "latest",

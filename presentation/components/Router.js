@@ -1,7 +1,9 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import { NewDeck } from "../screens/NewDeck";
 import { DeckDetails } from "../screens/DeckDetails";
 import { Home } from "../screens/Home";
+import { NewDeck } from "../screens/NewDeck";
+import { NewCard } from "../screens/NewCard";
+import { Quiz } from "../screens/Quiz";
 
 const AppNavigator = createStackNavigator(
   {
@@ -13,6 +15,12 @@ const AppNavigator = createStackNavigator(
     },
     DeckDetails: {
       screen: DeckDetails
+    },
+    NewCard: {
+      screen: NewCard
+    },
+    Quiz: {
+      screen: Quiz
     }
   },
   {
