@@ -1,12 +1,18 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { styles } from "../styles/Deck";
+import { View, Text, TouchableHighlight } from "react-native";
+import { styles } from "./styles/Deck";
 
-export const Deck = ({ title, cards, handlePress }) => (
-  <View style={styles.container}>
-    <Text style={styles.title} onPress={() => handlePress()}>
-      {title}
-    </Text>
-    <Text style={styles.cards}>{`${cards} cards`}</Text>
-  </View>
+export const Deck = ({ item, index }, navigation) => (
+  <TouchableHighlight
+    onPress={() =>
+      navigation.navigate("DeckDetails", {
+        deck: item
+      })
+    }
+  >
+    <View style={styles.container}>
+      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.cards}>{`${item.questions.length} cards`}</Text>
+    </View>
+  </TouchableHighlight>
 );

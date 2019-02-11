@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableHighlight
 } from "react-native";
-import { styles } from "../styles/NewDeck";
+import { styles } from "./styles/NewDeck";
 import { addDeckAction } from "../../domain/redux/ducks/decksReducer";
 import { addDeck } from "../../data/api";
 import { connect } from "react-redux";
@@ -20,7 +20,7 @@ class NewDeckContainer extends Component {
   };
   handleSubmit = async () => {
     const newDeck = new Deck(this.state.newDeckTitle);
-    await addDeck(this.state.newDeckTitle);
+    await addDeck(newDeck);
     this.props.addNewDeck(newDeck);
     this.props.navigation.navigate("Home");
   };

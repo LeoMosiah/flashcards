@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { primaryColor, secondaryColor } from "./colors";
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,25 +9,22 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: 34,
-    fontWeight: "bold",
-    color: secondaryColor
+    fontWeight: "bold"
   },
   input: {
     borderWidth: 2,
-    borderColor: primaryColor,
     width: "100%",
     padding: 5,
-    borderRadius: 10,
-    color: secondaryColor
+    borderRadius: 10
   },
   button: {
-    backgroundColor: primaryColor,
+    borderWidth: 1,
     borderRadius: 5,
-    padding: 10,
-    width: "50%"
+    width: 250,
+    padding: 10
   },
   textButton: {
-    alignSelf: "center",
-    color: secondaryColor
+    fontSize: 24,
+    alignSelf: "center"
   }
 });

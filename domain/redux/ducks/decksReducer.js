@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { cloneDeep } from "lodash";
 
 export const initialState = {};
 
@@ -25,19 +25,19 @@ export const addCardAction = (id, card) => ({
 });
 
 export const handleSetDecks = (state, action) => {
-  let clonedState = _.cloneDeep(state);
+  let clonedState = cloneDeep(state);
   clonedState = action.decks;
   return clonedState;
 };
 
 export const handleAddDeck = (state, action) => {
-  let clonedState = _.cloneDeep(state);
+  let clonedState = cloneDeep(state);
   clonedState[action.deck.id] = action.deck;
   return clonedState;
 };
 
 export const handleAddCard = (state, action) => {
-  let clonedState = _.cloneDeep(state);
+  let clonedState = cloneDeep(state);
   clonedState[action.id].questions.push(action.card);
   return clonedState;
 };

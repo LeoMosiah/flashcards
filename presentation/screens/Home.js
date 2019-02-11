@@ -1,28 +1,11 @@
-import React, { Component, Fragment } from "react";
-import { View } from "react-native";
-import { AddDeck } from "../components/AddDeck";
+import React, { Component } from "react";
+import { View, TouchableHighlight, Text, Dimensions } from "react-native";
 import { Deck } from "../components/Deck";
-import { styles } from "../styles/Home";
+import { styles } from "./styles/Home";
 import { connect } from "react-redux";
 import { decksSelector } from "../../domain/redux/ducks/decksReducer";
 import { getDecksAction } from "../../domain/redux/sagas/decksSaga";
-
-const HomeContent = ({ decks, navigation }) => {
-  return decks
-    ? Object.values(decks).map(deck => (
-        <Deck
-          key={deck.title}
-          title={deck.title}
-          cards={deck.questions.length}
-          handlePress={() =>
-            navigation.navigate("DeckDetails", {
-              deck: deck
-            })
-          }
-        />
-      ))
-    : null;
-};
+import Carousel from "react-native-snap-carousel/src/carousel/Carousel";
 
 class HomeContainer extends Component {
   componentDidMount() {
@@ -30,13 +13,28 @@ class HomeContainer extends Component {
   }
   render() {
     const { decks, navigation } = this.props;
+    const screenWidth = Dimensions.get("window").width;
     return (
-      <Fragment>
-        <View style={styles.container}>
-          <HomeContent decks={decks} navigation={navigation} />
+      <View style={styles.container}>
+        <View style={styles.carouselContainer}>
+          {decks && (
+            <Carousel
+              data={Object.values(decks)}
+              renderItem={element => Deck(element, navigation)}
+              itemWidth={screenWidth * 0.8}
+              sliderWidth={screenWidth}
+            />
+          )}
         </View>
-        <AddDeck handlePress={() => navigation.navigate("NewDeck")} />
-      </Fragment>
+        <View style={styles.buttonContainer}>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={() => navigation.navigate("NewDeck")}
+          >
+            <Text style={styles.textButton}>New Deck</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
     );
   }
 }

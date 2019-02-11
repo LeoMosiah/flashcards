@@ -7,7 +7,9 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { addCardAction } from "../../domain/redux/ducks/decksReducer";
-import { styles } from "../styles/NewCard";
+import { styles } from "./styles/NewCard";
+import { Card } from "../../domain/entities/Card";
+import { addCardToDeck } from "../../data/api";
 
 class NewCardContainer extends Component {
   state = {
@@ -20,12 +22,11 @@ class NewCardContainer extends Component {
   handleChangeAnswerText = answer => {
     this.setState({ answer });
   };
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const id = this.props.navigation.getParam("deckId");
-    this.props.addCard(id, {
-      question: this.state.question,
-      answer: this.state.answer
-    });
+    const cardToAdd = new Card(this.state.question, this.state.answer);
+    //await addCardToDeck(id, cardToAdd);
+    this.props.addCard(id, cardToAdd);
     this.setState({
       question: "",
       answer: ""
@@ -34,8 +35,8 @@ class NewCardContainer extends Component {
   render() {
     const { question, answer } = this.state;
     return (
-      <KeyboardAvoidingView behavior="padding" styles={styles.container}>
-        <Text style={styles.title}>Make a question</Text>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <Text style={styles.title}>Question</Text>
         <TextInput
           style={styles.input}
           value={question}
