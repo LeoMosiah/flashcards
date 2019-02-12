@@ -25,7 +25,7 @@ class NewCardContainer extends Component {
   handleSubmit = async () => {
     const id = this.props.navigation.getParam("deckId");
     const cardToAdd = new Card(this.state.question, this.state.answer);
-    //await addCardToDeck(id, cardToAdd);
+    await addCardToDeck(id, cardToAdd);
     this.props.addCard(id, cardToAdd);
     this.setState({
       question: "",

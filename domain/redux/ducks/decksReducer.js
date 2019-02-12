@@ -30,11 +30,10 @@ export const handleSetDecks = (state, action) => {
   return clonedState;
 };
 
-export const handleAddDeck = (state, action) => {
-  let clonedState = cloneDeep(state);
-  clonedState[action.deck.id] = action.deck;
-  return clonedState;
-};
+export const handleAddDeck = (state, action) => ({
+  ...state,
+  [action.deck.id]: action.deck
+});
 
 export const handleAddCard = (state, action) => {
   let clonedState = cloneDeep(state);

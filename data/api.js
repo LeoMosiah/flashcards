@@ -1,5 +1,4 @@
 import { AsyncStorage } from "react-native";
-import { initialData } from "./initialData";
 import { Notifications, Permissions } from "expo";
 
 export const DECKS_STORAGE_KEY = "Flashcards:decks";
@@ -24,63 +23,63 @@ export const addDeck = deck => {
   );
 };
 
-export const addCardToDeck = (deckId, card) => {
-  const deck = AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => result)
-    .deckId;
-
-  deck.questions.push(card);
-
-  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck));
-};
-
-export const fetchInitialData = () => {
-  return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData));
-};
-
-export function clearLocalNotiifcation() {
-  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
-    Notifications.cancelAllScheduledNotificationsAsync
-  );
-}
-
-export function createNotification() {
-  return {
-    title: "Study status",
-    body: "don't forget to study today",
-    ios: {
-      sound: true
-    },
-    android: {
-      sound: true,
-      priority: "high",
-      sticky: false,
-      vibrate: true
-    }
-  };
-}
-
-export function setLocalNotification() {
-  AsyncStorage.getItem(NOTIFICATION_KEY)
-    .then(JSON.parse)
-    .then(data => {
-      if (data === null) {
-        Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
-          if (status === "granted") {
-            Notifications.cancelAllScheduledNotificationsAsync();
-
-            let tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            tomorrow.setHours(20);
-            tomorrow.setMinutes(0);
-
-            Notifications.scheduleLocalNotificationAsync(createNotification(), {
-              time: tomorrow,
-              repeat: "day"
-            });
-
-            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
-          }
-        });
+export const addCardToDeck = async (deckId, card) => {
+  const decks = JSON.parse(await AsyncStorage.getItem(DECKS_STORAGE_KEY));
+  await AsyncStorage.setItem(
+    DECKS_STORAGE_KEY,
+    JSON.stringify({
+      ...decks,
+      [deckId]: {
+        ...decks[deckId],
+        questions: [card, ...decks[deckId].questions]
       }
-    });
-}
+    })
+  );
+};
+
+export const clearLocalNotifcation = async () => {
+  await AsyncStorage.removeItem(NOTIFICATION_KEY);
+  return await Notifications.cancelAllScheduledNotificationsAsync();
+};
+
+const createNotification = () => ({
+  title: "I haven't studied yer",
+  body: "don't forget to study today",
+  ios: {
+    sound: true
+  },
+  android: {
+    sound: true,
+    priority: "high",
+    sticky: false,
+    vibrate: true
+  }
+});
+
+export const setLocalNotification = async () => {
+  const data = await AsyncStorage.getItem(NOTIFICATION_KEY);
+  const notification = JSON.parse(data);
+
+  if (!notification) {
+    const notificationInfo = await Permissions.askAsync(
+      Permissions.NOTIFICATIONS
+    );
+    const { status } = notificationInfo;
+
+    if (status === "granted") {
+      await Notifications.cancelAllScheduledNotificationsAsync();
+
+      let tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(20);
+      tomorrow.setMinutes(0);
+
+      Notifications.scheduleLocalNotificationAsync(createNotification(), {
+        time: tomorrow,
+        repeat: "day"
+      });
+
+      AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+    }
+  }
+};

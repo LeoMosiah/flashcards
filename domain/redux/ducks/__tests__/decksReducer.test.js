@@ -143,6 +143,28 @@ describe("Decks reducer", () => {
     );
   });
 
+  it("should add deck when dont have add deck yet", () => {
+    const initialState = {};
+
+    const deckToAdd = {
+      title: "NewDeck",
+      questions: [],
+      id: "8ec4c9ca62754db4b396d1c8f01b6947"
+    };
+
+    const expectedState = {
+      "8ec4c9ca62754db4b396d1c8f01b6947": {
+        id: "8ec4c9ca62754db4b396d1c8f01b6947",
+        title: "NewDeck",
+        questions: []
+      }
+    };
+
+    expect(decksReducer(initialState, addDeckAction(deckToAdd))).toEqual(
+      expectedState
+    );
+  });
+
   it("should add card to a specific deck", () => {
     const initialState = {
       "20e23793bcda4ecfab92affcb25bbae8": {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, TouchableHighlight, Alert } from "react-native";
 import { styles } from "./styles/DeckDetails";
-import { clearLocalNotiifcation, setLocalNotification } from "../../data/api";
+import { clearLocalNotifcation, setLocalNotification } from "../../data/api";
 
 export class DeckDetails extends Component {
   state = {
@@ -14,7 +14,7 @@ export class DeckDetails extends Component {
       score: prevState.score + 1
     }));
     if (index + 1 >= this.state.maximumScore) {
-      clearLocalNotiifcation().then(setLocalNotification);
+      clearLocalNotifcation().then(setLocalNotification);
       Alert.alert(
         "Your Score",
         `You scored ${this.state.score} out of ${this.state.maximumScore}`,
@@ -30,7 +30,7 @@ export class DeckDetails extends Component {
 
   handleIncorrectAnswer = index => {
     if (index + 1 >= this.state.maximumScore) {
-      clearLocalNotiifcation().then(setLocalNotification);
+      clearLocalNotifcation().then(setLocalNotification);
       Alert.alert(
         "Your Score",
         `You scored ${this.state.score} out of ${this.state.maximumScore}`,
