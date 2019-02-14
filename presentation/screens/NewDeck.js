@@ -39,6 +39,7 @@ class NewDeckContainer extends Component {
           style={styles.button}
           underlayColor="#00b3b3"
           onPress={() => this.handleSubmit()}
+          disabled={!newDeckTitle}
         >
           <Text style={styles.textButton}>Add Deck</Text>
         </TouchableHighlight>

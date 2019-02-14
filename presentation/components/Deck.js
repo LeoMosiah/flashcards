@@ -6,7 +6,7 @@ export const Deck = ({ item, index }, navigation) => (
   <TouchableHighlight
     onPress={() =>
       navigation.navigate("DeckDetails", {
-        deck: item
+        deckId: item.id
       })
     }
   >

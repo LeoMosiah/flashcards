@@ -31,6 +31,7 @@ class NewCardContainer extends Component {
       question: "",
       answer: ""
     });
+    this.props.navigation.navigate("Home");
   };
   render() {
     const { question, answer } = this.state;
@@ -53,6 +54,7 @@ class NewCardContainer extends Component {
         <TouchableHighlight
           style={styles.button}
           onPress={() => this.handleSubmit()}
+          disabled={!question || !answer}
         >
           <Text style={styles.textButton}>Add Card</Text>
         </TouchableHighlight>

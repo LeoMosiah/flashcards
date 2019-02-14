@@ -1,86 +1,43 @@
-import React, { Component } from "react";
-import { View, Text, TouchableHighlight, Alert } from "react-native";
+import React from "react";
+import { Text, TouchableHighlight, View } from "react-native";
 import { styles } from "./styles/DeckDetails";
-import { clearLocalNotifcation, setLocalNotification } from "../../data/api";
+import { decksSelector } from "../../domain/redux/ducks/decksReducer";
+import { connect } from "react-redux";
 
-export class DeckDetails extends Component {
-  state = {
-    score: 0,
-    maximumScore: 0
+const DeckDetailsComponent = ({ deck, navigation }) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{deck.title}</Text>
+      <Text style={styles.subtitle}>{`${deck.questions.length} cards`}</Text>
+      <TouchableHighlight
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate("NewCard", {
+            deckId: `${deck.id}`
+          })
+        }
+      >
+        <Text style={styles.textButton}>Add Card</Text>
+      </TouchableHighlight>
+      <TouchableHighlight
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate("Quiz", {
+            cards: deck.questions
+          })
+        }
+      >
+        <Text style={styles.textButton}>Start Quiz</Text>
+      </TouchableHighlight>
+    </View>
+  );
+};
+
+const mapStateToProps = (state, { navigation }) => {
+  const decks = decksSelector(state);
+  return {
+    deck: decks[navigation.getParam("deckId")]
   };
+};
 
-  handleCorrectAnswer = async index => {
-    await this.setState((prevState, props) => ({
-      score: prevState.score + 1
-    }));
-    if (index + 1 >= this.state.maximumScore) {
-      clearLocalNotifcation().then(setLocalNotification);
-      Alert.alert(
-        "Your Score",
-        `You scored ${this.state.score} out of ${this.state.maximumScore}`,
-        [
-          {
-            text: "Back to Home",
-            onPress: () => this.props.navigation.navigate("Home")
-          }
-        ]
-      );
-    }
-  };
-
-  handleIncorrectAnswer = index => {
-    if (index + 1 >= this.state.maximumScore) {
-      clearLocalNotifcation().then(setLocalNotification);
-      Alert.alert(
-        "Your Score",
-        `You scored ${this.state.score} out of ${this.state.maximumScore}`,
-        [
-          {
-            text: "Back to Home",
-            onPress: () => this.props.navigation.navigate("Home")
-          }
-        ]
-      );
-    }
-  };
-  componentDidMount() {
-    const { navigation } = this.props;
-    this.setState({
-      maximumScore: navigation.getParam("deck").questions.length
-    });
-  }
-
-  render() {
-    const { navigation } = this.props;
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>{navigation.getParam("deck").title}</Text>
-        <Text style={styles.subtitle}>
-          {`${navigation.getParam("deck").questions.length} cards`}
-        </Text>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate("NewCard", {
-              deckId: `${navigation.getParam("deck").id}`
-            })
-          }
-        >
-          <Text style={styles.textButton}>Add Card</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate("Quiz", {
-              cards: navigation.getParam("deck").questions,
-              handleCorrectAnswer: this.handleCorrectAnswer,
-              handleIncorrectAnswer: this.handleIncorrectAnswer
-            })
-          }
-        >
-          <Text style={styles.textButton}>Start Quiz</Text>
-        </TouchableHighlight>
-      </View>
-    );
-  }
-}
+export const DeckDetails = connect(mapStateToProps)(DeckDetailsComponent);
