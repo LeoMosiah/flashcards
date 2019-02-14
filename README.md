@@ -1,6 +1,6 @@
 # Flashcards
 
-Flashcards it's a mobile application which allows users to study a collection of flashcards build with react-native and redux.
+Flashcards it's a mobile application which allows users to study a collection of flashcards build with react-native and redux. This app has been tested on an Android device.
 
 ## Instalation
 
