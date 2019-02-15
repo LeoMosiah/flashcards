@@ -19,7 +19,7 @@ class NewDeckContainer extends Component {
     this.setState({ newDeckTitle });
   };
   handleSubmit = async () => {
-    const newDeck = new Deck(this.state.newDeckTitle);
+    const newDeck = new Deck(this.state.newDeckTitle.trim());
     await addDeck(newDeck);
     this.props.addNewDeck(newDeck);
     this.props.navigation.navigate("Home");
@@ -39,7 +39,7 @@ class NewDeckContainer extends Component {
           style={styles.button}
           underlayColor="#00b3b3"
           onPress={() => this.handleSubmit()}
-          disabled={!newDeckTitle}
+          disabled={!newDeckTitle.replace(/\s/g, "")}
         >
           <Text style={styles.textButton}>Add Deck</Text>
         </TouchableHighlight>

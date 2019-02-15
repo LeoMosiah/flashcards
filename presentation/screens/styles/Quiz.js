@@ -12,10 +12,6 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     flex: 1
   },
-  flipCard: {
-    backfaceVisibility: "hidden"
-  },
-  flipCardBack: {},
   title: {
     fontSize: 28,
     fontWeight: "bold",

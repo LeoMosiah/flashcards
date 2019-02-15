@@ -23,7 +23,8 @@ const DeckDetailsComponent = ({ deck, navigation }) => {
         style={styles.button}
         onPress={() =>
           navigation.navigate("Quiz", {
-            cards: deck.questions
+            cards: deck.questions,
+            deckId: deck.id
           })
         }
       >

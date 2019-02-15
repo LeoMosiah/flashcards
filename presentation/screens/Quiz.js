@@ -4,7 +4,8 @@ import {
   Text,
   TouchableHighlight,
   Dimensions,
-  Alert
+  Alert,
+  Button
 } from "react-native";
 import { styles } from "./styles/Quiz";
 import Carousel from "react-native-snap-carousel/src/carousel/Carousel";
@@ -52,7 +53,7 @@ class QuizContent extends Component {
             <TouchableHighlight
               style={[
                 styles.button,
-                { backgroundColor: "green", borderColor: "green" }
+                { backgroundColor: "grey", borderColor: "grey" }
               ]}
               disabled={true}
             >
@@ -61,7 +62,7 @@ class QuizContent extends Component {
             <TouchableHighlight
               style={[
                 styles.button,
-                { backgroundColor: "red", borderColor: "red" }
+                { backgroundColor: "grey", borderColor: "grey" }
               ]}
               disabled={true}
             >
@@ -123,14 +124,18 @@ export class Quiz extends Component {
           `You scored ${this.state.score} out of ${this.state.maximumScore}`,
           [
             {
-              text: "Back to Home",
-              onPress: () => this.props.navigation.navigate("Home")
+              text: "Back to Deck",
+              onPress: () =>
+                this.props.navigation.navigate("DeckDetails", {
+                  deckId: this.props.navigation.getParam("deckId")
+                })
             },
             {
               text: "Back to Quiz",
               onPress: () =>
                 this.props.navigation.push("Quiz", {
-                  cards: this.props.navigation.getParam("cards")
+                  cards: this.props.navigation.getParam("cards"),
+                  deckId: this.props.navigation.getParam("deckId")
                 })
             }
           ]
@@ -148,8 +153,8 @@ export class Quiz extends Component {
         `Move to the next one`,
         [
           {
-            text: "Next Question",
-            onPress: () => this.props.navigation.navigate("Home")
+            text: "Go to the next question",
+            onPress: () => this._carousel.snapToNext()
           }
         ]
       );

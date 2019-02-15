@@ -24,7 +24,10 @@ class NewCardContainer extends Component {
   };
   handleSubmit = async () => {
     const id = this.props.navigation.getParam("deckId");
-    const cardToAdd = new Card(this.state.question, this.state.answer);
+    const cardToAdd = new Card(
+      this.state.question.trim(),
+      this.state.answer.trim()
+    );
     await addCardToDeck(id, cardToAdd);
     this.props.addCard(id, cardToAdd);
     this.setState({
@@ -54,7 +57,7 @@ class NewCardContainer extends Component {
         <TouchableHighlight
           style={styles.button}
           onPress={() => this.handleSubmit()}
-          disabled={!question || !answer}
+          disabled={!question.replace(/\s/g, "") || !answer.replace(/\s/g, "")}
         >
           <Text style={styles.textButton}>Add Card</Text>
         </TouchableHighlight>
