@@ -52,7 +52,7 @@ class NewCardContainer extends Component {
           style={styles.input}
           value={answer}
           onChangeText={text => this.handleChangeAnswerText(text)}
-          placeholder="Question"
+          placeholder="Answer"
         />
         <TouchableHighlight
           style={styles.button}
